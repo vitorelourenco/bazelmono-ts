@@ -18,7 +18,7 @@ ts_project(
     name = "src",
     srcs = SRCS,
     tsconfig = "//packages:tsconfig.json",
-    deps = ["@npm//express"]
+    deps = ["@npm//express"],
 )
 
 # Export library to be consumed
@@ -36,5 +36,6 @@ pkg_npm(
     package_name = "@bazelmono/common",
     srcs = ["package.json"],
     tgz = "bazelmono_common.tgz",
+    visibility = ["//visibility:public"],
     deps = [":src"],
 )

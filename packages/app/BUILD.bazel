@@ -1,4 +1,4 @@
-load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "pkg_npm")
 load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
 load("//tools:index.bzl", "terser_minified", "ts_project")
 
@@ -38,4 +38,15 @@ nodejs_binary(
     name = "run",
     data = [":bundle.min"],
     entry_point = ":bundle.min",
+)
+
+# This doesn't work as expected for me
+# Create NPM Package
+pkg_npm(
+    name = "pkg",
+    package_name = "@bazelmono/app",
+    srcs = ["package.json"],
+    tgz = "bazelmono_app.tgz",
+    deps = [":src"],
+    nested_packages = ["//packages/common:pkg"]
 )
